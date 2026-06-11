@@ -7,7 +7,7 @@ mkdir attendance_tracker_$input/Helpers
 touch attendance_tracker_$input/Helpers/assets.csv
 touch attendance_tracker_$input/Helpers/config.json
 mkdir attendance_tracker_$input/reports
-touch attendance_tracker_$input/reports.log
+touch attendance_tracker_$input/reports/reports.log
 
 
 
