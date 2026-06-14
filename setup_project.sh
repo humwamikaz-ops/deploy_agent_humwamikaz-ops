@@ -1,7 +1,15 @@
 #!/bin/bash
 
 echo "Enter a single name or number:" 
-read input 
+read input
+cleanup() {
+    echo "Interrupted! Archiving project..."
+    tar -czf attendance_tracker_${input}_archive.tar.gz attendance_tracker_$input
+    rm -rf attendance_tracker_$input
+    exit 1
+}
+
+trap cleanup SIGINT
 mkdir -p attendance_tracker_$input 
 touch attendance_tracker_$input/attendance_checker.py
 mkdir -p attendance_tracker_$input/Helpers
@@ -22,3 +30,8 @@ if [ "$ip" = "y" ]; then
 	sed -i "s/\"failure\": 50/\"failure\": $failure/" attendance_tracker_$input/Helpers/config.json
 fi
 
+if python3 --version &>/dev/null; then
+    echo "python3 is installed"
+else
+    echo "warning: python3 is not installed"
+fi
