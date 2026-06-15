@@ -86,10 +86,20 @@ cat > attendance_tracker_$input/reports/reports.log << 'EOF'
 EOF
 read -p "Do you want to make updates to the thresholds? y/n " ip
 if [ "$ip" = "y" ]; then
-	read -p "enter new warning threshold (def 75): " warning
-	read -p "enter new failure threshold (edf 50): " failure
-	sed -i "s/\"warning\": 75/\"warning\": $warning/" attendance_tracker_$input/Helpers/config.json
-	sed -i "s/\"failure\": 50/\"failure\": $failure/" attendance_tracker_$input/Helpers/config.json
+    read -p "enter new warning threshold (def 75): " warning
+    if ! [[ "$warning" =~ ^[0-9]+$ ]]; then
+        echo "Invalid input. Using default 75."
+        warning=75
+    fi
+
+    read -p "enter new failure threshold (def 50): " failure
+    if ! [[ "$failure" =~ ^[0-9]+$ ]]; then
+        echo "Invalid input. Using default 50."
+        failure=50
+    fi
+
+    sed -i "s/\"warning\": 75/\"warning\": $warning/" attendance_tracker_$input/Helpers/config.json
+    sed -i "s/\"failure\": 50/\"failure\": $failure/" attendance_tracker_$input/Helpers/config.json
 fi
 
 if python3 --version &>/dev/null; then
