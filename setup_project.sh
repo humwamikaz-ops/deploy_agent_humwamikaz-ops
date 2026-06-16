@@ -4,7 +4,7 @@ echo "Enter a single name or number:"
 read input
 cleanup() {
     echo "Interrupted! Archiving project..."
-    tar -czf attendance_tracker_${input}_archive.tar.gz attendance_tracker_$input
+    tar -czf attendance_tracker_${input}_archive attendance_tracker_$input
     rm -rf attendance_tracker_$input
     exit 1
 }
